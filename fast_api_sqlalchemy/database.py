@@ -11,10 +11,25 @@ load_dotenv()
 
 URL_DATABASE = os.getenv("DATABASE_URL")
 
-#
-engine = create_engine(URL_DATABASE)
+# engine is like the connection manager to the database
+engine = create_engine(URL_DATABASE) # like the gateway for ORM sessions
+
+# Session is a temporary database connection that makes the queries and changes
+# similar to sqlite3.connect but it is more high level and has more functions
+# set autocommit to false since you dont want to automatically commit after every query
+# set autoflush to false, flush means push ORM changes to db before querying.
+
+"""FLUSH"""
+# Writes queries to DB, but it is contained within the transation (session)
+# other users cannot see the changes yet, can be rolledback
+# Feature is only avail in ORMs, not in sqlite
+
+"""COMMIT"""
+# Commits changes to database, other users can see
 
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+
 Base = declarative_base()
 
