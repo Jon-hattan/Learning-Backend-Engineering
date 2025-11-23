@@ -12,7 +12,8 @@ from models import User, Post
 
 
 from sqlalchemy import Boolean, Column, Integer, String
-from database import Base # run the database.py script and import the Base that we've created
+from database import Base 
+# run the database.py script and import the Base that we've created
 
 class User(Base):
     __tablename__ = 'users'
