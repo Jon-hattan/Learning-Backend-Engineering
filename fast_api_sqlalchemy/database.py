@@ -1,5 +1,11 @@
 """
 All the application strings - to connect to SQL
+Configures the database
+Models inherit from the Base
+
+This script is never actually called directly.
+from .database import Base --> for eg.
+at model import time, the script is executed
 """
 
 from sqlalchemy import create_engine #to create the engine to communicate
@@ -27,9 +33,9 @@ engine = create_engine(URL_DATABASE) # like the gateway for ORM sessions
 """COMMIT"""
 # Commits changes to database, other users can see
 
-
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-
-Base = declarative_base()
+# Create a base class that all ORM models inherit from
+# TELLS SQLALCHEMY WHICH CLASSES REPRESENT DATABASE TABLES, so its easy to store tables/column definitions
+Base = declarative_base() 
 
