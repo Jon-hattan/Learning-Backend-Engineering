@@ -197,3 +197,13 @@ async def get_all_posts(db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="no posts in database")
     else:
         return all_posts
+    
+
+"""
+NEXT UP:
+- DATABASE MIGRATIONS (ALEMBIC)
+- USER AUTH
+- ERROR HANDLING
+- ENV VARIABLES (which we already kinda did)
+
+"""
