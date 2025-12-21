@@ -11,13 +11,15 @@ app = FastAPI(root_path="/api/v1")
 # Looks at all the classes that inherit from the models.Base
 # Reads column definitions, creates the actual tables in the database if they dont already exist.
 """
+models.Base.metadata.create_all(bind=engine)  ## ONLY FOR PROTOTYPING
 IN PRODUCTION: this line is not used. it doesnt handle schema changes
 This literally recreates the tables. 
 It does this: Creates all database tables defined in my SQLAlchemy models if they do not already exist, but do not manage changes.
 Prod databases require safe migrations
-Need to do something called ALEMBIC MIGRATIONS - learn later.
+Need to do something called ALEMBIC MIGRATIONS
 """
-models.Base.metadata.create_all(bind=engine)
+
+"""ALEMBIC MIGRATIONS"""
 
 # Create Pydantic Model for Post
 class PostBase(BaseModel):
@@ -211,6 +213,17 @@ NEXT UP:
 - USER AUTH
 - ERROR HANDLING
 - ENV VARIABLES (which we already kinda did)
+
+"""
+
+
+"""
+ALEMBIC MIGRATIONS
+in terminal, run "alembic init migrations" to create the necessary folders
+Alembic migrations let your database schema change safely over time by recording
+ each schema change (like adding a column or table) as a versioned, ordered, and 
+ reversible step, so existing data is preserved and every environment can be upgraded 
+ or rolled back in a controlled way instead of recreating tables.
 
 """
 

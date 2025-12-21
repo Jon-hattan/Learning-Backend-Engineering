@@ -24,6 +24,8 @@ class User(Base):
 
     # setting string(50) means it is a varchar with max size 50
     username = Column(String(50), unique=True)
+    #email = Column(String(50), unique=True)
+
 
 
 class Post(Base):

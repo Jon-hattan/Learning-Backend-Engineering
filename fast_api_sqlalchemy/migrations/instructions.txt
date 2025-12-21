@@ -1,0 +1,25 @@
+Alembic automatically generates migration files by comparing 
+your models to the database, lets you review and adjust those 
+files, and then applies them to update the database schema in 
+a controlled way.
+
+
+
+To migrate, run this cmd 
+alembic revision --autogenerate -m "INSERT NAME OF MIGRATION"
+
+
+# AT THE START: assuming you already have a database
+
+# 1. Create an empty baseline migration alembic revision -m "baseline migration" 
+# 2. Mark it as applied (without actually running it) alembic stamp head
+
+alembic current:	        Show current migration version
+alembic history:	        Show all migrations
+alembic upgrade head:	    Apply all pending migrations
+alembic upgrade +1:	        Apply next migration
+alembic downgrade -1:	    Rollback last migration
+alembic downgrade base:	    Rollback all migrations
+alembic revision --autogenerate -m "message":	Create new migration by comparing models to DB
+alembic revision -m "message":	                Create empty migration (manual)
+
