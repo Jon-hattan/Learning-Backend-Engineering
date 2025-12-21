@@ -12,7 +12,9 @@ app = FastAPI(root_path="/api/v1")
 # Reads column definitions, creates the actual tables in the database if they dont already exist.
 """
 IN PRODUCTION: this line is not used. it doesnt handle schema changes
-This literally recreates the tables. Prod databases require safe migrations
+This literally recreates the tables. 
+It does this: Creates all database tables defined in my SQLAlchemy models if they do not already exist, but do not manage changes.
+Prod databases require safe migrations
 Need to do something called ALEMBIC MIGRATIONS - learn later.
 """
 models.Base.metadata.create_all(bind=engine)
@@ -179,6 +181,10 @@ async def update_username( user_id: int, user_update: UserBase, db: Session = De
     db.refresh(user)
     return user
 
+
+
+
+
 @app.post("/posts/", response_model=PostResponse)
 async def create_post(user_post: PostBase, db: Session = Depends(get_db)):
     post = models.Post(**user_post.model_dump()) #create orm object
@@ -206,4 +212,20 @@ NEXT UP:
 - ERROR HANDLING
 - ENV VARIABLES (which we already kinda did)
 
+"""
+
+
+
+"""
+****RUNNING AND TESTING****
+
+FASTAPI itself doesnt run, need a ASGI Server
+- Use Uvicorn
+uvicorn main:app --reload
+--> main is the filename
+--> app is the FastAPI object
+--> --reload param means it auto restarts on code changes.
+
+ADD "docs" to the end of the url to access the Swagger UI, which makes it easy to test it.
+http://127.0.0.1:8000/docs
 """

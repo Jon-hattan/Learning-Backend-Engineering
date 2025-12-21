@@ -1,6 +1,6 @@
-# Backend Engineering Journey
+# Backend Engineering
 
-Learning backend development through hands-on projects.
+Learning backend development through OVERDOCUMENTED backend execution...... Everything is explained and nothing is left unexplained.
 
 ## Progress
 
@@ -8,6 +8,7 @@ Learning backend development through hands-on projects.
 - RESTful API development
 - SQLAlchemy ORM integration
 - Database connections and migrations
+- Alembic Migrations (in progress)
 
 **Flask** (coming soon)
 

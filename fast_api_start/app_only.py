@@ -77,3 +77,4 @@ async def delete_campaign(id: int):
             return {"campaign_removed" : app.state.data.pop(i)}
 
     raise HTTPException(status_code=404, detail="id not found")
+
