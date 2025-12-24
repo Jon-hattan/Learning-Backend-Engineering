@@ -24,7 +24,8 @@ class User(Base):
 
     # setting string(50) means it is a varchar with max size 50
     username = Column(String(50), unique=True)
-    #email = Column(String(50), unique=True)
+    email = Column(String(100), unique=True)
+    password = Column(String(200))  # Hashed passwords need more space (bcrypt produces 60 char hashes)
 
 
 

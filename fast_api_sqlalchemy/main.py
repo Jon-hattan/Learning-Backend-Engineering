@@ -4,9 +4,11 @@ from typing import Annotated
 import models
 from database import engine, SessionLocal
 from sqlalchemy.orm import Session
+import auth
 
 
 app = FastAPI(root_path="/api/v1")
+app.include_router(auth.router) # ROUTER FOR AUTH
 
 # Looks at all the classes that inherit from the models.Base
 # Reads column definitions, creates the actual tables in the database if they dont already exist.
@@ -174,10 +176,23 @@ async def delete_user(user_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="id does not exist in database")
     
 @app.put("/users/{user_id}", response_model=UserBase)
-async def update_username( user_id: int, user_update: UserBase, db: Session = Depends(get_db)):
+async def update_username(
+    user_id: int,
+    user_update: UserBase,
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(auth.get_current_user)  # JWT AUTHENTICATION - only authenticated users can access
+):
+    # Check if the authenticated user is updating their own account
+    if current_user['id'] != user_id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You can only update your own username"
+        )
+
     user = db.get(models.User, user_id)
     if not user:
         raise HTTPException(status_code=404, detail="id does not exist in database")
+
     user.username = user_update.username # ORM OBJECT IS A LIVE INSTANCE, YOU CHANGE IT MEANS CHANGING THE DATABASE IN THE TRANSACTION
     db.commit()
     db.refresh(user)
