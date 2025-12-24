@@ -8,7 +8,8 @@ Learning backend development through OVERDOCUMENTED backend execution...... Ever
 - RESTful API development
 - SQLAlchemy ORM integration
 - Database connections and migrations
-- Alembic Migrations (in progress)
+- Alembic Migrations
+- JWT Authentication (in progress)
 
 **Flask** (coming soon)
 
